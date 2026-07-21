@@ -98,14 +98,7 @@ body.lang-en [data-lang="fr"] { display: none !important; }
   border-bottom: 1px solid var(--line);
 }
 .nav__logo { display: flex; align-items: center; }
-.brand {
-  display: flex; align-items: center; gap: 9px;
-  font-family: var(--font-display); font-weight: 700;
-  font-size: 19px; letter-spacing: -0.02em; color: var(--ink);
-}
-.brand__sun { flex: none; }
-.brand__word { line-height: 1; }
-.footer .brand { color: var(--bg); font-size: 16px; }
+.nav__logo-img { height: 28px; width: auto; display: block; }
 .nav__links {
   display: flex;
   align-items: center;
@@ -420,7 +413,7 @@ body.lang-en [data-lang="fr"] { display: none !important; }
   padding: 30px 48px;
   display: flex; justify-content: space-between; align-items: center; gap: 24px;
 }
-.footer__logo svg { height: 20px; width: auto; display: block; }
+.footer__logo-img { height: 22px; width: auto; display: block; }
 .footer__copy { font-size: 13.5px; color: var(--footer-ink); }
 .footer__links { display: flex; gap: 20px; font-size: 13.5px; }
 .footer__links a { color: var(--footer-ink); }
