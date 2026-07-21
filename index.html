@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heliophile — Producteur indépendant d'énergie solaire & stockage (PV + BESS), France</title>
+<meta name="description" content="Heliophile développe et exploite des centrales photovoltaïques et des systèmes de stockage par batterie (BESS) en France, et aide les entreprises à réduire leurs coûts d'énergie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="lang-fr">
+
+<!-- reusable sun brandmark is inlined per-use so it inherits currentColor -->
+
+<nav class="nav" id="nav">
+  <a href="#top" class="nav__logo" aria-label="Heliophile">
+    <span class="brand">
+      <svg class="brand__sun" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2" fill="var(--accent)" stroke="none"></circle>
+        <line x1="12" y1="1.8" x2="12" y2="4.6"></line>
+        <line x1="12" y1="19.4" x2="12" y2="22.2"></line>
+        <line x1="1.8" y1="12" x2="4.6" y2="12"></line>
+        <line x1="19.4" y1="12" x2="22.2" y2="12"></line>
+        <line x1="4.8" y1="4.8" x2="6.8" y2="6.8"></line>
+        <line x1="17.2" y1="17.2" x2="19.2" y2="19.2"></line>
+        <line x1="4.8" y1="19.2" x2="6.8" y2="17.2"></line>
+        <line x1="17.2" y1="6.8" x2="19.2" y2="4.8"></line>
+      </svg>
+      <span class="brand__word">Heliophile</span>
+    </span>
+  </a>
+
+  <div class="nav__links" id="navLinks">
+    <a href="#societe"><span data-lang="fr">La société</span><span data-lang="en">Company</span></a>
+    <a href="#projets"><span data-lang="fr">Projets</span><span data-lang="en">Projects</span></a>
+    <a href="#stockage"><span data-lang="fr">Stockage entreprises</span><span data-lang="en">Storage for business</span></a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <div class="nav__right">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" id="btnFr" aria-pressed="true">FR</button>
+      <button type="button" id="btnEn" aria-pressed="false">EN</button>
+    </div>
+    <a href="#contact" class="btn btn--dark btn--sm nav__cta">
+      <span data-lang="fr">Nous contacter</span><span data-lang="en">Contact us</span>
+    </a>
+    <button type="button" class="nav__burger" id="burger" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+  </div>
+</nav>
+
+<header id="top" class="hero" data-hero="photo">
+  <div class="hero__col">
+    <div class="hero__eyebrow">
+      <span class="dot"></span>
+      <span data-lang="fr">Producteur indépendant · PV &amp; BESS · France</span>
+      <span data-lang="en">Independent power producer · PV &amp; BESS · France</span>
+    </div>
+    <h1 data-lang="fr">Produire l'énergie solaire.<br>La <span class="accent">stocker</span> intelligemment.</h1>
+    <h1 data-lang="en">Generating solar power.<br><span class="accent">Storing</span> it intelligently.</h1>
+    <p class="hero__lead" data-lang="fr">Heliophile développe et exploite des centrales photovoltaïques et des systèmes de stockage par batterie (BESS) en France — et aide les entreprises à réduire leurs coûts d'énergie.</p>
+    <p class="hero__lead" data-lang="en">Heliophile develops and operates photovoltaic plants and battery energy storage systems (BESS) in France — and helps companies cut their energy costs.</p>
+    <div class="hero__actions">
+      <a href="#stockage" class="btn btn--accent"><span data-lang="fr">Réduire mes coûts d'énergie →</span><span data-lang="en">Cut my energy costs →</span></a>
+      <a href="#projets" class="btn btn--ghost"><span data-lang="fr">Voir nos projets</span><span data-lang="en">See our projects</span></a>
+    </div>
+  </div>
+
+  <div class="hero__visual">
+    <div class="hero__glow"></div>
+
+    <!-- Photo variant (default) -->
+    <div class="hero__photo">
+      <div class="slot">
+        <img src="uploads/hero.jpg" alt="Centrale photovoltaïque au coucher du soleil">
+      </div>
+    </div>
+
+    <!-- Abstract "flux" variant — swap data-hero on <header> to "abstract" to show -->
+    <div class="flux">
+      <div class="flux__head">
+        <span>HELIOPHILE / FLUX</span>
+        <span class="flux__live"><span class="dot"></span>LIVE</span>
+      </div>
+      <div class="flux__grid" id="fluxGrid"></div>
+      <div class="flux__bar">
+        <div class="flux__track"><div class="flux__fill"></div></div>
+        <span class="flux__meta"><span data-lang="fr">BESS · charge 68 %</span><span data-lang="en">BESS · 68 % charged</span></span>
+      </div>
+      <div class="flux__flow">production → stockage → réseau</div>
+    </div>
+  </div>
+</header>
+
+<section class="stats">
+  <div class="stats__grid">
+    <div class="stat">
+      <span class="stat__num">15</span>
+      <span class="stat__label"><span data-lang="fr">ANS D'EXPÉRIENCE ENR</span><span data-lang="en">YEARS IN RENEWABLES</span></span>
+    </div>
+    <div class="stat">
+      <span class="stat__num">2</span>
+      <span class="stat__label">TECHNOLOGIES · PV + BESS</span>
+    </div>
+    <div class="stat">
+      <span class="stat__num">3</span>
+      <span class="stat__label"><span data-lang="fr">PROJETS EN DÉVELOPPEMENT</span><span data-lang="en">PROJECTS IN DEVELOPMENT</span></span>
+    </div>
+    <div class="stat">
+      <span class="stat__num">100<sup>%</sup></span>
+      <span class="stat__label">FRANCE</span>
+    </div>
+  </div>
+</section>
+
+<section id="societe" class="company">
+  <div class="company__main">
+    <div class="company__intro">
+      <span class="eyebrow"><span data-lang="fr">01 — La société</span><span data-lang="en">01 — Company</span></span>
+      <h2 class="section-title" data-lang="fr">Un producteur indépendant, à taille humaine</h2>
+      <h2 class="section-title" data-lang="en">An independent producer, on a human scale</h2>
+      <p data-lang="fr">Heliophile est une société française de production d'énergie renouvelable. Nous développons, finançons et exploitons des centrales photovoltaïques et des systèmes de stockage par batterie, du foncier jusqu'à l'exploitation.</p>
+      <p data-lang="en">Heliophile is a French renewable energy producer. We develop, finance and operate photovoltaic plants and battery storage systems — from land to operation.</p>
+      <p data-lang="fr">Notre conviction : des projets bien dimensionnés, ancrés dans les territoires, avec un interlocuteur unique du premier rendez-vous à la mise en service.</p>
+      <p data-lang="en">Our conviction: well-sized projects, rooted in their territory, with a single point of contact from first meeting to commissioning.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline__row">
+        <span class="timeline__year">2011</span>
+        <span class="timeline__desc"><span data-lang="fr">Débuts dans les énergies renouvelables — projets biomasse</span><span data-lang="en">First steps in renewables — biomass projects</span></span>
+      </div>
+      <div class="timeline__row">
+        <span class="timeline__year">2016</span>
+        <span class="timeline__desc"><span data-lang="fr">Développement photovoltaïque en France</span><span data-lang="en">Photovoltaic development across France</span></span>
+      </div>
+      <div class="timeline__row">
+        <span class="timeline__year">2024</span>
+        <span class="timeline__desc"><span data-lang="fr">Lancement de l'activité stockage batterie (BESS)</span><span data-lang="en">Launch of the battery storage (BESS) business</span></span>
+      </div>
+      <div class="timeline__row">
+        <span class="timeline__year">2026</span>
+        <span class="timeline__desc"><span data-lang="fr">Portefeuille PV + BESS en développement dans 3 régions</span><span data-lang="en">PV + BESS portfolio in development across 3 regions</span></span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="founder">
+    <div class="founder__avatar">
+      <div class="slot slot--circle"><div class="slot__mono">PP</div></div>
+    </div>
+    <div>
+      <div class="founder__name">Philippe Perrette</div>
+      <div class="founder__role"><span data-lang="fr">FONDATEUR</span><span data-lang="en">FOUNDER</span></div>
+    </div>
+    <p data-lang="fr">15 ans d'expérience dans les énergies renouvelables en France, d'abord dans la biomasse puis dans le photovoltaïque. Philippe pilote chaque projet de bout en bout : foncier, autorisations, financement, construction, exploitation.</p>
+    <p data-lang="en">15 years of renewable energy experience in France, first in biomass, then in photovoltaics. Philippe leads every project end to end: land, permits, financing, construction, operation.</p>
+    <div class="founder__tags">
+      <span class="tag">BIOMASSE</span>
+      <span class="tag">PHOTOVOLTAÏQUE</span>
+      <span class="tag">BESS</span>
+    </div>
+  </aside>
+</section>
+
+<section id="projets" class="projects">
+  <div class="projects__inner">
+    <div class="projects__head">
+      <div class="projects__head-l">
+        <span class="eyebrow"><span data-lang="fr">02 — Projets</span><span data-lang="en">02 — Projects</span></span>
+        <h2 class="section-title" data-lang="fr">Nos projets en développement</h2>
+        <h2 class="section-title" data-lang="en">Projects in development</h2>
+      </div>
+      <span class="projects__note" data-lang="fr">Du sol creusois aux réseaux bretons — des projets ancrés dans leur territoire.</span>
+      <span class="projects__note" data-lang="en">From the Creuse to Brittany's grid — projects rooted in their territory.</span>
+    </div>
+
+    <div class="projects__grid">
+      <!-- Fursac -->
+      <article class="card">
+        <div class="card__media">
+          <div class="slot"><img src="uploads/fursac.jpg" alt="Projet photovoltaïque de Fursac"></div>
+        </div>
+        <div class="card__body">
+          <div class="card__tags">
+            <span class="chip chip--pv">PV</span>
+            <span class="chip chip--status"><span data-lang="fr">EN DÉVELOPPEMENT</span><span data-lang="en">IN DEVELOPMENT</span></span>
+          </div>
+          <span class="card__name">Fursac</span>
+          <span class="card__loc">Creuse (23) · Nouvelle-Aquitaine</span>
+          <p class="card__desc" data-lang="fr">Centrale photovoltaïque au sol, développée en lien étroit avec la commune et les propriétaires fonciers.</p>
+          <p class="card__desc" data-lang="en">Ground-mounted solar plant, developed hand in hand with the municipality and landowners.</p>
+        </div>
+      </article>
+
+      <!-- Loudéac -->
+      <article class="card">
+        <div class="card__media">
+          <div class="slot"><img src="uploads/loudeac.jpg" alt="Projet photovoltaïque de Loudéac"></div>
+        </div>
+        <div class="card__body">
+          <div class="card__tags">
+            <span class="chip chip--pv">PV</span>
+            <span class="chip chip--status"><span data-lang="fr">EN DÉVELOPPEMENT</span><span data-lang="en">IN DEVELOPMENT</span></span>
+          </div>
+          <span class="card__name">Loudéac</span>
+          <span class="card__loc">Côtes-d'Armor (22) · Bretagne</span>
+          <p class="card__desc" data-lang="fr">Projet photovoltaïque en Bretagne, au cœur d'un territoire en forte demande d'électricité locale.</p>
+          <p class="card__desc" data-lang="en">Photovoltaic project in Brittany, in a region with strong demand for local electricity.</p>
+        </div>
+      </article>
+
+      <!-- Guégon -->
+      <article class="card">
+        <div class="card__media">
+          <div class="slot"><img src="uploads/guegon.jpg" alt="Projet de stockage par batterie (BESS) de Guégon"></div>
+        </div>
+        <div class="card__body">
+          <div class="card__tags">
+            <span class="chip chip--bess">BESS</span>
+            <span class="chip chip--status"><span data-lang="fr">EN DÉVELOPPEMENT</span><span data-lang="en">IN DEVELOPMENT</span></span>
+          </div>
+          <span class="card__name">Guégon</span>
+          <span class="card__loc">Morbihan (56) · Bretagne</span>
+          <p class="card__desc" data-lang="fr">Stockage par batterie raccordé au réseau : flexibilité et stabilité pour le système électrique breton.</p>
+          <p class="card__desc" data-lang="en">Grid-connected battery storage: flexibility and stability for Brittany's power system.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="stockage" class="storage">
+  <div class="storage__inner">
+    <div class="storage__top">
+      <div class="storage__intro">
+        <span class="eyebrow"><span data-lang="fr">03 — Stockage pour les entreprises</span><span data-lang="en">03 — Storage for business</span></span>
+        <h2 class="section-title" data-lang="fr">Une batterie derrière votre compteur, une facture allégée</h2>
+        <h2 class="section-title" data-lang="en">A battery behind your meter, a lighter bill</h2>
+        <p data-lang="fr">Vos pointes de consommation coûtent cher : puissance souscrite surdimensionnée, dépassements, heures pleines. Un BESS bien dimensionné se charge quand l'électricité est bon marché et couvre vos pointes.</p>
+        <p data-lang="en">Consumption peaks are expensive: oversized subscribed capacity, overrun penalties, peak-hour prices. A well-sized BESS charges when power is cheap and covers your peaks.</p>
+      </div>
+      <div class="storage__photo">
+        <div class="slot"><img src="uploads/bess.jpg" alt="Conteneur de stockage par batterie BESS"></div>
+      </div>
+    </div>
+
+    <div class="chart">
+      <div class="chart__col">
+        <span class="chart__label"><span data-lang="fr">SANS BATTERIE</span><span data-lang="en">WITHOUT BATTERY</span></span>
+        <div class="chart__plot" id="plotBefore"></div>
+        <span class="chart__note" data-lang="fr">Les pointes dépassent la puissance souscrite — pénalités et abonnement surdimensionné.</span>
+        <span class="chart__note" data-lang="en">Peaks exceed subscribed capacity — penalties and an oversized subscription.</span>
+      </div>
+      <div class="chart__col">
+        <span class="chart__label chart__label--accent"><span data-lang="fr">AVEC BATTERIE HELIOPHILE</span><span data-lang="en">WITH A HELIOPHILE BATTERY</span></span>
+        <div class="chart__plot" id="plotAfter"></div>
+        <div class="chart__legend">
+          <span class="k"><span class="swatch swatch--grid"></span><span data-lang="fr">Réseau</span><span data-lang="en">Grid</span></span>
+          <span class="k"><span class="swatch swatch--batt"></span><span data-lang="fr">Batterie</span><span data-lang="en">Battery</span></span>
+          <span class="k"><span class="swatch swatch--line"></span><span data-lang="fr">Puissance souscrite</span><span data-lang="en">Subscribed capacity</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="offers">
+      <div class="offer">
+        <span class="offer__label"><span data-lang="fr">OFFRE 01</span><span data-lang="en">OFFER 01</span></span>
+        <div class="offer__inner" data-lang="fr">
+          <h3>Écrêtage des pointes</h3>
+          <p>Une batterie installée sur votre site, derrière le compteur. Elle se charge en heures creuses et restitue l'énergie pendant vos pointes : puissance souscrite réduite, dépassements évités, achat d'électricité optimisé.</p>
+          <ul>
+            <li>Réduction de la puissance souscrite (CTA, TURPE)</li>
+            <li>Suppression des pénalités de dépassement</li>
+            <li>Arbitrage heures pleines / heures creuses</li>
+          </ul>
+        </div>
+        <div class="offer__inner" data-lang="en">
+          <h3>Peak shaving</h3>
+          <p>A battery on your site, behind the meter. It charges off-peak and discharges during your peaks: lower subscribed capacity, no overrun penalties, optimised electricity purchasing.</p>
+          <ul>
+            <li>Reduced subscribed capacity (grid fees)</li>
+            <li>No more overrun penalties</li>
+            <li>Peak / off-peak arbitrage</li>
+          </ul>
+        </div>
+      </div>
+      <div class="offer">
+        <span class="offer__label"><span data-lang="fr">OFFRE 02</span><span data-lang="en">OFFER 02</span></span>
+        <div class="offer__inner" data-lang="fr">
+          <h3>Clé en main &amp; exploitation</h3>
+          <p>Heliophile prend en charge l'intégralité du projet : audit de votre profil de consommation, dimensionnement, installation, raccordement, puis pilotage et maintenance dans la durée.</p>
+          <ul>
+            <li>Étude et business plan sans engagement</li>
+            <li>Installation et mise en service par nos partenaires</li>
+            <li>Supervision, pilotage et maintenance (O&amp;M)</li>
+          </ul>
+        </div>
+        <div class="offer__inner" data-lang="en">
+          <h3>Turnkey &amp; operations</h3>
+          <p>Heliophile handles the entire project: consumption-profile audit, sizing, installation, grid connection, then long-term monitoring and maintenance.</p>
+          <ul>
+            <li>Study and business plan, no commitment</li>
+            <li>Installation and commissioning with our partners</li>
+            <li>Supervision, dispatch and maintenance (O&amp;M)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="process">
+      <div class="step">
+        <span class="step__n">01</span>
+        <div data-lang="fr"><div class="step__t">Audit</div><div class="step__d">Analyse de votre courbe de charge et de vos factures.</div></div>
+        <div data-lang="en"><div class="step__t">Audit</div><div class="step__d">Analysis of your load curve and energy bills.</div></div>
+      </div>
+      <div class="step">
+        <span class="step__n">02</span>
+        <div data-lang="fr"><div class="step__t">Dimensionnement</div><div class="step__d">Batterie et business plan adaptés à votre site.</div></div>
+        <div data-lang="en"><div class="step__t">Sizing</div><div class="step__d">Battery and business plan tailored to your site.</div></div>
+      </div>
+      <div class="step">
+        <span class="step__n">03</span>
+        <div data-lang="fr"><div class="step__t">Installation</div><div class="step__d">Pose, raccordement et mise en service sur votre site.</div></div>
+        <div data-lang="en"><div class="step__t">Installation</div><div class="step__d">Delivery, grid connection and commissioning on site.</div></div>
+      </div>
+      <div class="step">
+        <span class="step__n">04</span>
+        <div data-lang="fr"><div class="step__t">Pilotage</div><div class="step__d">Supervision, optimisation et maintenance dans la durée.</div></div>
+        <div data-lang="en"><div class="step__t">Operations</div><div class="step__d">Long-term supervision, optimisation and maintenance.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <span class="dot"></span>
+  <div class="contact__block" data-lang="fr">
+    <h2>Parlons de votre projet</h2>
+    <p class="contact__lead">Entreprise, collectivité, propriétaire foncier ou investisseur : écrivez-nous, nous répondons sous 48 h.</p>
+  </div>
+  <div class="contact__block" data-lang="en">
+    <h2>Let's talk about your project</h2>
+    <p class="contact__lead">Company, local authority, landowner or investor: write to us — we reply within 48 hours.</p>
+  </div>
+  <div class="contact__row">
+    <a href="mailto:contact@heliophile.fr" class="btn btn--accent btn--accent-lg">contact@heliophile.fr</a>
+    <span class="contact__based"><span data-lang="fr">BASÉE EN FRANCE</span><span data-lang="en">BASED IN FRANCE</span></span>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <a href="#top" class="footer__logo" aria-label="Heliophile">
+      <span class="brand">
+        <svg class="brand__sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2" fill="var(--accent)" stroke="none"></circle>
+          <line x1="12" y1="1.8" x2="12" y2="4.6"></line><line x1="12" y1="19.4" x2="12" y2="22.2"></line>
+          <line x1="1.8" y1="12" x2="4.6" y2="12"></line><line x1="19.4" y1="12" x2="22.2" y2="12"></line>
+          <line x1="4.8" y1="4.8" x2="6.8" y2="6.8"></line><line x1="17.2" y1="17.2" x2="19.2" y2="19.2"></line>
+          <line x1="4.8" y1="19.2" x2="6.8" y2="17.2"></line><line x1="17.2" y1="6.8" x2="19.2" y2="4.8"></line>
+        </svg>
+        <span class="brand__word">Heliophile</span>
+      </span>
+    </a>
+    <span class="footer__copy" data-lang="fr">© 2026 Heliophile — Producteur indépendant d'énergie renouvelable, France</span>
+    <span class="footer__copy" data-lang="en">© 2026 Heliophile — Independent renewable energy producer, France</span>
+    <div class="footer__links">
+      <a href="#projets">Fursac</a><a href="#projets">Loudéac</a><a href="#projets">Guégon</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
