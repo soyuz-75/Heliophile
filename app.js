@@ -312,6 +312,9 @@
     render((17.5 - H0) / (H1 - H0)); // static peak-moment snapshot
   } else if ('IntersectionObserver' in window) {
     render(0);
-    new IntersectionObserver(function (en) { en.forEach(function (e) { e.isIntersecting ? play() : pause(); }); }, { threshold: 0.18 }).observe(sim);
+    // threshold 0: play as soon as any part is visible. A higher threshold
+    // never fires on mobile, where the stacked section is taller than the
+    // viewport can ever fill by a fixed percentage.
+    new IntersectionObserver(function (en) { en.forEach(function (e) { e.isIntersecting ? play() : pause(); }); }, { threshold: 0 }).observe(sim);
   } else { play(); }
 })();
