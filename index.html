@@ -235,23 +235,175 @@
       </div>
     </div>
 
-    <div class="chart">
-      <div class="chart__col">
-        <span class="chart__label"><span data-lang="fr">SANS BATTERIE</span><span data-lang="en">WITHOUT BATTERY</span></span>
-        <div class="chart__plot" id="plotBefore"></div>
-        <span class="chart__note" data-lang="fr">Les pointes dépassent la puissance souscrite — pénalités et abonnement surdimensionné.</span>
-        <span class="chart__note" data-lang="en">Peaks exceed subscribed capacity — penalties and an oversized subscription.</span>
+    <!-- ============ BESS live comparison simulation ============ -->
+    <div class="bess-sim" id="bessSim" role="img"
+         aria-label="Simulation animée comparant les coûts d'électricité d'une entreprise sur une journée, sans batterie puis avec une batterie Heliophile.">
+      <div class="bess-sim__head">
+        <span class="eyebrow"><span data-lang="fr">Comparaison en direct — une journée type</span><span data-lang="en">Live comparison — one typical day</span></span>
+        <h3 class="bess-sim__title" data-lang="fr">La même entreprise, la même journée — avec et sans batterie</h3>
+        <h3 class="bess-sim__title" data-lang="en">The same business, the same day — with and without a battery</h3>
+        <p class="bess-sim__sub" data-lang="fr">La batterie se charge quand l'électricité est bon marché et alimente le site pendant les pointes chères. Résultat : des pointes écrêtées et une facture nettement réduite.</p>
+        <p class="bess-sim__sub" data-lang="en">The battery charges when power is cheap and supplies the site during expensive peaks. The result: shaved peaks and a markedly lower bill.</p>
+        <div class="bess-sim__clock"><span class="dot"></span><b id="bessClock">06:00</b><span data-lang="fr">· heure de la journée</span><span data-lang="en">· time of day</span></div>
       </div>
-      <div class="chart__col">
-        <span class="chart__label chart__label--accent"><span data-lang="fr">AVEC BATTERIE HELIOPHILE</span><span data-lang="en">WITH A HELIOPHILE BATTERY</span></span>
-        <div class="chart__plot" id="plotAfter"></div>
-        <div class="chart__legend">
-          <span class="k"><span class="swatch swatch--grid"></span><span data-lang="fr">Réseau</span><span data-lang="en">Grid</span></span>
-          <span class="k"><span class="swatch swatch--batt"></span><span data-lang="fr">Batterie</span><span data-lang="en">Battery</span></span>
-          <span class="k"><span class="swatch swatch--line"></span><span data-lang="fr">Puissance souscrite</span><span data-lang="en">Subscribed capacity</span></span>
+
+      <div class="bess-sim__grid">
+        <!-- ============ LEFT — WITHOUT BESS ============ -->
+        <section class="bess-panel" data-side="without" id="panelWithout">
+          <div class="bess-panel__top">
+            <span class="bess-panel__label"><i></i><span data-lang="fr">Sans BESS</span><span data-lang="en">Without BESS</span></span>
+            <div class="bess-tier">
+              <span class="bess-tier__cap" data-lang="fr">Prix</span><span class="bess-tier__cap" data-lang="en">Price</span>
+              <div class="bess-tier__bar"><span class="bess-tier__mark" id="markWithout"></span></div>
+              <span class="bess-tier__val" id="priceWithout">€0.10/kWh</span>
+            </div>
+          </div>
+
+          <div class="bess-factory">
+            <svg viewBox="0 0 340 165" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="bldWO" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#F4F5F1"/><stop offset="1" stop-color="#E2E5DC"/>
+                </linearGradient>
+                <radialGradient id="glowWO" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#EF4444" stop-opacity="0.55"/><stop offset="1" stop-color="#EF4444" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <line x1="10" y1="150" x2="330" y2="150" stroke="#D8DCD3" stroke-width="1.5"/>
+              <!-- grid glow (peak) -->
+              <circle class="bess-grid-glow" cx="44" cy="120" r="30" fill="url(#glowWO)"/>
+              <!-- grid pylon -->
+              <g stroke="#9AA39B" stroke-width="2" fill="none" stroke-linecap="round">
+                <path d="M32 150 L44 92 L56 150"/>
+                <line x1="34" y1="112" x2="54" y2="112"/><line x1="37" y1="128" x2="51" y2="128"/>
+                <line x1="30" y1="100" x2="58" y2="100"/>
+              </g>
+              <!-- wire grid -> building -->
+              <line class="wire" x1="58" y1="120" x2="112" y2="120" stroke="#9AA39B" stroke-width="1.6"/>
+              <g class="bess-flow is-on">
+                <circle class="bess-particle p-grid" cx="60" cy="120" r="3" fill="#606A63"/>
+                <circle class="bess-particle p-grid d2" cx="60" cy="120" r="3" fill="#606A63"/>
+                <circle class="bess-particle p-grid d3" cx="60" cy="120" r="3" fill="#606A63"/>
+              </g>
+              <!-- building -->
+              <rect x="112" y="78" width="140" height="72" rx="4" fill="url(#bldWO)" stroke="#CFD3C9" stroke-width="1"/>
+              <g fill="#CBD5E1">
+                <rect x="124" y="90" width="16" height="14" rx="1.5"/><rect x="148" y="90" width="16" height="14" rx="1.5"/>
+                <rect x="172" y="90" width="16" height="14" rx="1.5"/><rect x="196" y="90" width="16" height="14" rx="1.5"/>
+                <rect x="124" y="114" width="16" height="14" rx="1.5"/><rect x="148" y="114" width="16" height="14" rx="1.5"/>
+                <rect x="196" y="114" width="16" height="14" rx="1.5"/>
+              </g>
+              <rect x="172" y="120" width="16" height="30" rx="1.5" fill="#B7BDB2"/>
+            </svg>
+          </div>
+
+          <div class="bess-graph" data-side="without"></div>
+
+          <div class="bess-counters">
+            <div class="bess-kpi"><span class="bess-kpi__label"><span data-lang="fr">Puissance appelée</span><span data-lang="en">Power demand</span></span><span class="bess-kpi__val" id="woDemand">— <small>kW</small></span></div>
+            <div class="bess-kpi"><span class="bess-kpi__label"><span data-lang="fr">Prix élec.</span><span data-lang="en">Electricity price</span></span><span class="bess-kpi__val" id="woPrice">—</span></div>
+            <div class="bess-kpi"><span class="bess-kpi__label"><span data-lang="fr">Coût du jour</span><span data-lang="en">Today's cost</span></span><span class="bess-kpi__val" id="woCost">—</span></div>
+            <div class="bess-kpi bess-kpi--peak" id="woPeakCell"><span class="bess-kpi__label"><span data-lang="fr">Pointe max.</span><span data-lang="en">Peak demand</span></span><span class="bess-kpi__val" id="woPeak">— <small>kW</small></span></div>
+          </div>
+        </section>
+
+        <!-- ============ RIGHT — WITH BESS ============ -->
+        <section class="bess-panel" data-side="with" id="panelWith">
+          <div class="bess-panel__top">
+            <span class="bess-panel__label"><i></i><span data-lang="fr">Avec BESS Heliophile</span><span data-lang="en">With Heliophile BESS</span></span>
+            <div class="bess-tier">
+              <span class="bess-tier__cap" data-lang="fr">Prix</span><span class="bess-tier__cap" data-lang="en">Price</span>
+              <div class="bess-tier__bar"><span class="bess-tier__mark" id="markWith"></span></div>
+              <span class="bess-tier__val" id="priceWith">€0.10/kWh</span>
+            </div>
+          </div>
+
+          <div class="bess-factory">
+            <svg viewBox="0 0 340 165" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="bldW" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#F4F5F1"/><stop offset="1" stop-color="#E2E5DC"/>
+                </linearGradient>
+                <linearGradient id="battW" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#60A5FA"/><stop offset="1" stop-color="#2563EB"/>
+                </linearGradient>
+              </defs>
+              <line x1="10" y1="150" x2="330" y2="150" stroke="#D8DCD3" stroke-width="1.5"/>
+              <!-- grid pylon (left) -->
+              <g stroke="#9AA39B" stroke-width="2" fill="none" stroke-linecap="round">
+                <path d="M16 150 L28 92 L40 150"/>
+                <line x1="18" y1="112" x2="38" y2="112"/><line x1="21" y1="128" x2="35" y2="128"/>
+                <line x1="14" y1="100" x2="42" y2="100"/>
+              </g>
+              <!-- wire grid -> battery (charging) -->
+              <line class="wire" x1="42" y1="128" x2="84" y2="128" stroke="#9AA39B" stroke-width="1.6"/>
+              <g class="bess-flow is-on" id="flowChargeW">
+                <circle class="bess-particle p-chg" cx="46" cy="128" r="3" fill="#606A63"/>
+                <circle class="bess-particle p-chg d2" cx="46" cy="128" r="3" fill="#606A63"/>
+                <circle class="bess-particle p-chg d3" cx="46" cy="128" r="3" fill="#606A63"/>
+              </g>
+              <!-- battery (between grid and building) -->
+              <g class="bess-batt" id="battUnit">
+                <rect x="98" y="103" width="10" height="5" rx="1.5" fill="#93A3B8"/>
+                <rect class="bess-batt-body" x="84" y="108" width="42" height="42" rx="5" fill="#fff" stroke="#3B82F6" stroke-width="1.6"/>
+                <clipPath id="battClip"><rect x="86" y="110" width="38" height="38" rx="3.5"/></clipPath>
+                <rect id="battFill" x="86" y="120" width="38" height="28" fill="url(#battW)" clip-path="url(#battClip)"/>
+                <path d="M107 116 l-9 13 h6.5 l-2.5 11 9 -15 h-6.5 z" fill="#fff" opacity="0.92"/>
+              </g>
+              <!-- wire battery -> building (discharging) -->
+              <line class="wire" x1="126" y1="128" x2="164" y2="128" stroke="#3B82F6" stroke-width="1.8"/>
+              <g class="bess-flow is-on" id="flowBattW">
+                <circle class="bess-particle p-dis" cx="128" cy="128" r="3" fill="#3B82F6"/>
+                <circle class="bess-particle p-dis d2" cx="128" cy="128" r="3" fill="#3B82F6"/>
+                <circle class="bess-particle p-dis d3" cx="128" cy="128" r="3" fill="#3B82F6"/>
+              </g>
+              <!-- building (right) -->
+              <rect x="164" y="78" width="150" height="72" rx="4" fill="url(#bldW)" stroke="#CFD3C9" stroke-width="1"/>
+              <g fill="#CBD5E1">
+                <rect x="176" y="90" width="16" height="14" rx="1.5"/><rect x="200" y="90" width="16" height="14" rx="1.5"/>
+                <rect x="224" y="90" width="16" height="14" rx="1.5"/><rect x="248" y="90" width="16" height="14" rx="1.5"/><rect x="272" y="90" width="16" height="14" rx="1.5"/>
+                <rect x="176" y="114" width="16" height="14" rx="1.5"/><rect x="200" y="114" width="16" height="14" rx="1.5"/>
+                <rect x="248" y="114" width="16" height="14" rx="1.5"/><rect x="272" y="114" width="16" height="14" rx="1.5"/>
+              </g>
+              <rect x="224" y="120" width="16" height="30" rx="1.5" fill="#B7BDB2"/>
+            </svg>
+          </div>
+
+          <div class="bess-graph" data-side="with"></div>
+
+          <div class="bess-counters">
+            <div class="bess-kpi"><span class="bess-kpi__label"><span data-lang="fr">Appel réseau</span><span data-lang="en">Grid demand</span></span><span class="bess-kpi__val" id="wDemand">— <small>kW</small></span></div>
+            <div class="bess-kpi bess-kpi--accent"><span class="bess-kpi__label"><span data-lang="fr">Sortie batterie</span><span data-lang="en">Battery output</span></span><span class="bess-kpi__val" id="wBatt">— <small>kW</small></span></div>
+            <div class="bess-kpi"><span class="bess-kpi__label"><span data-lang="fr">Coût du jour</span><span data-lang="en">Today's cost</span></span><span class="bess-kpi__val" id="wCost">—</span></div>
+            <div class="bess-kpi bess-kpi--save"><span class="bess-kpi__label"><span data-lang="fr">Économie du jour</span><span data-lang="en">Savings today</span></span><span class="bess-kpi__val" id="wSave">—</span></div>
+            <div class="bess-kpi bess-kpi--wide"><span class="bess-kpi__label"><span data-lang="fr">Charge batterie (SOC)</span><span data-lang="en">Battery state of charge</span></span>
+              <div class="bess-soc"><div class="bess-soc__track"><div class="bess-soc__fill" id="socFill"></div></div><span class="bess-kpi__val" id="wSoc" style="font-size:16px">—</span></div>
+            </div>
+            <div class="bess-kpi bess-kpi--wide"><span class="bess-kpi__label"><span data-lang="fr">CO₂ évité</span><span data-lang="en">CO₂ saved</span></span><span class="bess-kpi__val" id="wCo2">— <small>kg</small></span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============ live savings comparison band ============ -->
+      <div class="bess-compare">
+        <div class="bess-compare__item bess-compare__item--without">
+          <span class="bess-compare__k"><span data-lang="fr">Sans BESS</span><span data-lang="en">Without BESS</span></span>
+          <span class="bess-compare__v" id="cmpWithout">€0</span>
+        </div>
+        <span class="bess-compare__arrow">→</span>
+        <div class="bess-compare__item bess-compare__item--with">
+          <span class="bess-compare__k"><span data-lang="fr">Avec BESS</span><span data-lang="en">With BESS</span></span>
+          <span class="bess-compare__v" id="cmpWith">€0</span>
+        </div>
+        <span class="bess-compare__arrow">→</span>
+        <div class="bess-compare__item bess-compare__item--save">
+          <span class="bess-compare__k"><span data-lang="fr">Économie aujourd'hui</span><span data-lang="en">Savings today</span></span>
+          <span class="bess-compare__v" id="cmpSave">€0</span>
         </div>
       </div>
+
     </div>
+    <!-- ============ /BESS simulation ============ -->
 
     <div class="offers">
       <div class="offer">

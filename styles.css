@@ -353,25 +353,6 @@ body.lang-en [data-lang="fr"] { display: none !important; }
   box-shadow: 0 24px 60px -30px rgba(23,29,26,.25);
 }
 
-.chart {
-  background: var(--white); border: 1px solid var(--line); border-radius: 16px;
-  padding: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
-}
-.chart__col { display: flex; flex-direction: column; gap: 16px; }
-.chart__label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; color: var(--muted-2); }
-.chart__label--accent { color: var(--accent-deep); }
-.chart__plot { position: relative; height: 150px; display: flex; align-items: flex-end; gap: 7px; padding-bottom: 1px; }
-.chart__cap { position: absolute; left: 0; right: 0; border-top: 2px dashed var(--ink); opacity: .45; pointer-events: none; }
-.chart__bar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
-.chart__over { border-radius: 3px 3px 0 0; }
-.chart__base { background: #C9CFC6; }
-.chart__note { font-size: 14px; color: var(--muted-2); }
-.chart__legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--muted-2); align-items: center; }
-.chart__legend span.k { display: flex; align-items: center; gap: 7px; }
-.swatch { width: 11px; height: 11px; border-radius: 3px; }
-.swatch--grid { background: #C9CFC6; }
-.swatch--batt { background: var(--accent); }
-.swatch--line { width: 14px; border-top: 2px dashed var(--ink); opacity: .6; }
 
 .offers { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .offer {
@@ -449,7 +430,7 @@ body.lang-en [data-lang="fr"] { display: none !important; }
   .projects__grid { grid-template-columns: 1fr; }
   .projects__head { flex-direction: column; align-items: flex-start; gap: 16px; }
   .projects__note { text-align: left; }
-  .chart, .offers, .process { grid-template-columns: 1fr; }
+  .offers, .process { grid-template-columns: 1fr; }
   .process { gap: 20px; }
   .contact { padding: 88px 32px; }
   .contact h2 { font-size: 36px; }
@@ -464,4 +445,173 @@ body.lang-en [data-lang="fr"] { display: none !important; }
   .nav { padding: 12px 20px; }
   .projects__inner, .storage__inner { padding: 64px 20px; }
   .company { padding: 56px 20px; }
+}
+
+/* ============================================================
+   BESS live comparison simulation  (WITHOUT vs WITH battery)
+   Self-contained, scoped under .bess-sim. Reuses the site's
+   design tokens; adds a local battery-blue / signal palette.
+   ============================================================ */
+.bess-sim {
+  --bess-blue: #3B82F6;
+  --bess-blue-deep: #2563EB;
+  --bess-blue-soft: color-mix(in oklab, var(--bess-blue) 12%, #FFFFFF);
+  --sig-green: #22C55E;
+  --sig-amber: #F59E0B;
+  --sig-orange: #F97316;
+  --sig-red: #EF4444;
+  --grid-grey: #C9CFC6;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.bess-sim__head { display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center; }
+.bess-sim__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 30px; line-height: 1.12; letter-spacing: -0.02em; font-weight: 700;
+  text-wrap: balance;
+}
+.bess-sim__sub { margin: 0; font-size: 16px; line-height: 1.6; color: var(--muted); max-width: 62ch; text-wrap: pretty; }
+.bess-sim__clock {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; color: var(--muted-2);
+  padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--white);
+}
+.bess-sim__clock b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.bess-sim__clock .dot { width: 6px; height: 6px; }
+
+/* --- panel grid --- */
+.bess-sim__grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  position: relative;
+}
+.bess-panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px;
+  display: flex; flex-direction: column; gap: 16px;
+  box-shadow: 0 24px 60px -44px rgba(23,29,26,.4);
+  transition: box-shadow .4s ease, border-color .4s ease;
+}
+.bess-panel[data-side="with"] { border-color: color-mix(in oklab, var(--bess-blue) 26%, var(--line)); }
+.bess-panel.is-peak[data-side="without"] { border-color: color-mix(in oklab, var(--sig-red) 42%, var(--line)); }
+
+.bess-panel__top { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.bess-panel__label {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .09em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 8px; font-weight: 500;
+}
+.bess-panel__label i {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--muted-3); display: inline-block;
+}
+.bess-panel[data-side="without"] .bess-panel__label i { background: var(--grid-grey); }
+.bess-panel[data-side="with"] .bess-panel__label i { background: var(--bess-blue); }
+
+/* --- electricity price tier indicator --- */
+.bess-tier { display: flex; align-items: center; gap: 10px; }
+.bess-tier__cap {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; color: var(--muted-3);
+  text-transform: uppercase; white-space: nowrap;
+}
+.bess-tier__bar {
+  position: relative; width: 86px; height: 8px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--sig-green) 0%, var(--sig-amber) 45%, var(--sig-orange) 72%, var(--sig-red) 100%);
+}
+.bess-tier__mark {
+  position: absolute; top: 50%; left: 0; width: 12px; height: 12px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--ink); transform: translate(-50%, -50%);
+  transition: left .25s cubic-bezier(.4,0,.2,1), border-color .25s ease;
+  box-shadow: 0 2px 6px rgba(23,29,26,.25);
+}
+.bess-tier__val {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--ink);
+  font-variant-numeric: tabular-nums; min-width: 74px; text-align: right;
+}
+
+/* --- factory illustration --- */
+.bess-factory { position: relative; }
+.bess-factory svg { width: 100%; height: auto; display: block; }
+.bess-factory .wire { stroke-dasharray: 3 5; opacity: .5; }
+.bess-flow { opacity: 0; transition: opacity .5s ease; }
+.bess-flow.is-on { opacity: 1; }
+.bess-particle { animation-play-state: paused; }
+.bess-sim.is-running .bess-flow.is-on .bess-particle { animation-play-state: running; }
+
+.p-grid { animation: pFlowGrid 2.1s linear infinite; }
+.p-chg  { animation: pFlowChg  1.9s linear infinite; }
+.p-dis  { animation: pFlowDis  1.5s linear infinite; }
+.p-grid.d2 { animation-delay: .7s; }  .p-grid.d3 { animation-delay: 1.4s; }
+.p-chg.d2  { animation-delay: .63s; } .p-chg.d3  { animation-delay: 1.26s; }
+.p-dis.d2  { animation-delay: .5s; }  .p-dis.d3  { animation-delay: 1s; }
+
+@keyframes pFlowGrid { 0%{transform:translateX(0);opacity:0} 12%{opacity:1} 88%{opacity:1} 100%{transform:translateX(52px);opacity:0} }
+@keyframes pFlowChg  { 0%{transform:translateX(0);opacity:0} 12%{opacity:1} 88%{opacity:1} 100%{transform:translateX(36px);opacity:0} }
+@keyframes pFlowDis  { 0%{transform:translateX(0);opacity:0} 12%{opacity:1} 88%{opacity:1} 100%{transform:translateX(32px);opacity:0} }
+
+.bess-batt-body { transition: filter .4s ease; }
+.bess-batt.is-active .bess-batt-body { animation: battPulse 2.2s ease-in-out infinite; }
+@keyframes battPulse { 0%,100%{ filter: drop-shadow(0 0 0 rgba(59,130,246,0)); } 50%{ filter: drop-shadow(0 0 7px rgba(59,130,246,.7)); } }
+.bess-grid-glow { transition: opacity .4s ease; opacity: 0; }
+.bess-panel.is-peak .bess-grid-glow { opacity: 1; }
+
+/* --- power graph --- */
+.bess-graph { position: relative; }
+.bess-graph svg { width: 100%; height: auto; display: block; overflow: visible; }
+.bess-graph .axis { font-family: var(--font-mono); font-size: 9px; fill: var(--muted-3); letter-spacing: .04em; }
+.bess-graph .gl { stroke: var(--line); stroke-width: 1; }
+.bess-graph .ref { stroke: var(--muted-3); stroke-width: 1.4; stroke-dasharray: 3 4; fill: none; opacity: .45; }
+.bess-graph .lead { filter: drop-shadow(0 0 4px currentColor); }
+
+/* --- counters --- */
+.bess-counters { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-radius: 12px; overflow: hidden; }
+.bess-kpi { background: var(--white); padding: 12px 14px; display: flex; flex-direction: column; gap: 3px; }
+.bess-kpi__label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted-2); }
+.bess-kpi__val {
+  font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink);
+  font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.bess-kpi__val small { font-size: 12px; font-weight: 500; color: var(--muted-2); letter-spacing: 0; }
+.bess-kpi--accent .bess-kpi__val { color: var(--bess-blue-deep); }
+.bess-kpi--save .bess-kpi__val { color: var(--sig-green); }
+.bess-kpi--peak.is-hot .bess-kpi__val { color: var(--sig-red); }
+
+/* SOC mini gauge inside a KPI */
+.bess-soc { display: flex; align-items: center; gap: 8px; }
+.bess-soc__track { flex: 1; height: 8px; border-radius: 999px; background: var(--panel); overflow: hidden; border: 1px solid var(--line-2); }
+.bess-soc__fill { height: 100%; width: 60%; border-radius: 999px; background: linear-gradient(90deg, var(--bess-blue), var(--bess-blue-deep)); transition: width .3s ease; }
+
+/* --- live savings comparison band --- */
+.bess-compare {
+  display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 8px;
+  background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 24px 28px;
+  box-shadow: 0 24px 60px -44px rgba(23,29,26,.4);
+}
+.bess-compare__item { display: flex; flex-direction: column; gap: 6px; text-align: center; }
+.bess-compare__k { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-2); }
+.bess-compare__v { font-family: var(--font-display); font-size: 34px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
+.bess-compare__item--without .bess-compare__v { color: var(--ink); }
+.bess-compare__item--with .bess-compare__v { color: var(--bess-blue-deep); }
+.bess-compare__item--save .bess-compare__v { color: var(--sig-green); font-size: 40px; }
+.bess-compare__arrow { font-size: 22px; color: var(--muted-3); }
+
+/* --- responsive --- */
+@media (max-width: 900px) {
+  .bess-sim__grid { grid-template-columns: 1fr; }
+  .bess-compare { grid-template-columns: 1fr; gap: 16px; padding: 22px; }
+  .bess-compare__arrow { transform: rotate(90deg); justify-self: center; }
+  .bess-compare__item--save .bess-compare__v { font-size: 34px; }
+}
+@media (max-width: 480px) {
+  .bess-counters { grid-template-columns: 1fr; }
+  .bess-kpi__val { font-size: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bess-particle, .bess-batt.is-active .bess-batt-body { animation: none !important; }
+  .bess-tier__mark, .bess-soc__fill { transition: none !important; }
 }
